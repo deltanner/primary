@@ -8,31 +8,58 @@
             font-family: sans-serif;
             background: #f9f9f9;
             padding: 20px;
-            max-width: 600px;
+            max-width: 700px;
             margin: auto;
         }
         h1 {
             text-align: center;
-            margin-bottom: 30px;
         }
         audio {
             width: 100%;
-            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+        .controls {
+            text-align: center;
+            margin: 10px 0;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 0 10px;
+            font-size: 16px;
         }
         #now-playing {
             font-weight: bold;
-            margin-bottom: 10px;
             text-align: center;
+            margin-top: 15px;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+        .active {
+            font-weight: bold;
+            color: darkblue;
         }
     </style>
 </head>
 <body>
     <h1>Primary Songs 2025</h1>
+    <div class="controls">
+        <button onclick="prevTrack()">⏮ Prev</button>
+        <button onclick="togglePlayPause()" id="playPauseBtn">⏸ Pause</button>
+        <button onclick="nextTrack()">Next ⏭</button>
+    </div>
     <div id="now-playing">Now Playing: Anytime Anywhere.mp3</div>
     <audio id="audio-player" controls autoplay>
         <source id="audio-source" src="https://deltanner.github.io/primary/Anytime%20Anywhere.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    <ul id="playlist">
+        <li id="track-0">Anytime Anywhere.mp3</li><li id="track-1">Called to Serve.mp3</li><li id="track-2">I belong to the church of Jesus Christ.mp3</li><li id="track-3">I will walk with Jesus.mp3</li><li id="track-4">My Own Sacred Grove.mp3</li><li id="track-5">Scripture Power.mp3</li><li id="track-6">Search Ponder and Pray.mp3</li><li id="track-7">This is my Beloved Son.mp3</li><li id="track-8">We Thank Thee O God for a Prophet.mp3</li><li id="track-9">because.mp3</li>
+    </ul>
     <script>
         const tracks = ["https://deltanner.github.io/primary/Anytime%20Anywhere.mp3", "https://deltanner.github.io/primary/Called%20to%20Serve.mp3", "https://deltanner.github.io/primary/I%20belong%20to%20the%20church%20of%20Jesus%20Christ.mp3", "https://deltanner.github.io/primary/I%20will%20walk%20with%20Jesus.mp3", "https://deltanner.github.io/primary/My%20Own%20Sacred%20Grove.mp3", "https://deltanner.github.io/primary/Scripture%20Power.mp3", "https://deltanner.github.io/primary/Search%20Ponder%20and%20Pray.mp3", "https://deltanner.github.io/primary/This%20is%20my%20Beloved%20Son.mp3", "https://deltanner.github.io/primary/We%20Thank%20Thee%20O%20God%20for%20a%20Prophet.mp3", "https://deltanner.github.io/primary/because.mp3"];
         const trackNames = ["Anytime Anywhere.mp3", "Called to Serve.mp3", "I belong to the church of Jesus Christ.mp3", "I will walk with Jesus.mp3", "My Own Sacred Grove.mp3", "Scripture Power.mp3", "Search Ponder and Pray.mp3", "This is my Beloved Son.mp3", "We Thank Thee O God for a Prophet.mp3", "because.mp3"];
@@ -41,16 +68,47 @@
         const audioPlayer = document.getElementById('audio-player');
         const audioSource = document.getElementById('audio-source');
         const nowPlaying = document.getElementById('now-playing');
+        const playPauseBtn = document.getElementById('playPauseBtn');
 
-        audioPlayer.addEventListener('ended', () => {
-            currentTrack++;
-            if (currentTrack < tracks.length) {
-                audioSource.src = tracks[currentTrack];
-                nowPlaying.textContent = "Now Playing: " + trackNames[currentTrack];
-                audioPlayer.load();
-                audioPlayer.play();
+        function updateTrackDisplay() {
+            nowPlaying.textContent = "Now Playing: " + trackNames[currentTrack];
+            document.querySelectorAll("ul#playlist li").forEach((el, index) => {
+                el.className = index === currentTrack ? "active" : "";
+            });
+        }
+
+        function loadTrack(index) {
+            currentTrack = index;
+            audioSource.src = tracks[currentTrack];
+            audioPlayer.load();
+            audioPlayer.play();
+            updateTrackDisplay();
+        }
+
+        function nextTrack() {
+            if (currentTrack < tracks.length - 1) {
+                loadTrack(currentTrack + 1);
             }
-        });
+        }
+
+        function prevTrack() {
+            if (currentTrack > 0) {
+                loadTrack(currentTrack - 1);
+            }
+        }
+
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playPauseBtn.textContent = "⏸ Pause";
+            } else {
+                audioPlayer.pause();
+                playPauseBtn.textContent = "▶️ Play";
+            }
+        }
+
+        audioPlayer.addEventListener('ended', nextTrack);
+        updateTrackDisplay();
     </script>
 </body>
 </html>
