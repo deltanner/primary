@@ -13,30 +13,31 @@
         }
         h1 {
             text-align: center;
-            margin-bottom: 40px;
-        }
-        .track {
-            display: none;
+            margin-bottom: 30px;
         }
         audio {
             width: 100%;
+            margin-bottom: 20px;
         }
         #now-playing {
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <h1>Primary Songs 2025</h1>
-    <div id="now-playing">Now Playing: Track 1</div>
+    <div id="now-playing">Now Playing: Anytime Anywhere.mp3</div>
     <audio id="audio-player" controls autoplay>
-        <source id="audio-source" src="https://docs.google.com/uc?export=download&id=10Ob81AUKJUug9oxH7N2OFhRtw4a7mc30" type="audio/mpeg">
+        <source id="audio-source" src="https://deltanner.github.io/primary/Anytime%20Anywhere.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     <script>
-        const tracks = ["https://docs.google.com/uc?export=download&id=10Ob81AUKJUug9oxH7N2OFhRtw4a7mc30", "https://docs.google.com/uc?export=download&id=10crG30GEN52JW5sbNOlVjOPgsznm8JXF", "https://docs.google.com/uc?export=download&id=10WjoWH7pNwN747O_gOE9QvBF4bJ6t0Cz", "https://docs.google.com/uc?export=download&id=101HkjT_270dFPtJDH6xTfsFYGChrg93-", "https://docs.google.com/uc?export=download&id=107k9s_eIw1jGxZAT9iJHmoZ52ZWX7NRk", "https://docs.google.com/uc?export=download&id=10caIqWkYgqA5LXpP8xqIlpe6l2L87q0w", "https://docs.google.com/uc?export=download&id=10RFDryHiR3h3Pep5AJahhtlYyhngM5zQ", "https://docs.google.com/uc?export=download&id=10d9udLiWvKt0PoGPcYiAApKwC_49vsCp", "https://docs.google.com/uc?export=download&id=10-cqgV6G_0tnaPgfNRZfla0kXA5ubUky", "https://docs.google.com/uc?export=download&id=10bNIv7Mmc6nCyEyg-gLBorwO3OVKY4-K"];
+        const tracks = ["https://deltanner.github.io/primary/Anytime%20Anywhere.mp3", "https://deltanner.github.io/primary/Called%20to%20Serve.mp3", "https://deltanner.github.io/primary/I%20belong%20to%20the%20church%20of%20Jesus%20Christ.mp3", "https://deltanner.github.io/primary/I%20will%20walk%20with%20Jesus.mp3", "https://deltanner.github.io/primary/My%20Own%20Sacred%20Grove.mp3", "https://deltanner.github.io/primary/Scripture%20Power.mp3", "https://deltanner.github.io/primary/Search%20Ponder%20and%20Pray.mp3", "https://deltanner.github.io/primary/This%20is%20my%20Beloved%20Son.mp3", "https://deltanner.github.io/primary/We%20Thank%20Thee%20O%20God%20for%20a%20Prophet.mp3", "https://deltanner.github.io/primary/because.mp3"];
+        const trackNames = ["Anytime Anywhere.mp3", "Called to Serve.mp3", "I belong to the church of Jesus Christ.mp3", "I will walk with Jesus.mp3", "My Own Sacred Grove.mp3", "Scripture Power.mp3", "Search Ponder and Pray.mp3", "This is my Beloved Son.mp3", "We Thank Thee O God for a Prophet.mp3", "because.mp3"];
         let currentTrack = 0;
+
         const audioPlayer = document.getElementById('audio-player');
         const audioSource = document.getElementById('audio-source');
         const nowPlaying = document.getElementById('now-playing');
@@ -45,7 +46,7 @@
             currentTrack++;
             if (currentTrack < tracks.length) {
                 audioSource.src = tracks[currentTrack];
-                nowPlaying.textContent = 'Now Playing: Track ' + (currentTrack + 1);
+                nowPlaying.textContent = "Now Playing: " + trackNames[currentTrack];
                 audioPlayer.load();
                 audioPlayer.play();
             }
