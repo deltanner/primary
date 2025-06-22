@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Primary Songs 2025</title>
+    <title>Parowan 2nd Ward Primary Songs 2025</title>
     <style>
         body {
             font-family: sans-serif;
@@ -46,11 +46,18 @@
             padding: 8px;
             border-bottom: 1px solid #ddd;
             font-size: 1em;
+            display: flex;
+            justify-content: space-between;
         }
         .active {
             font-weight: bold;
             color: darkblue;
             background-color: #e0eaff;
+        }
+        .duration {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #666;
         }
         @media (max-width: 600px) {
             button {
@@ -67,7 +74,7 @@
     </style>
 </head>
 <body>
-    <h1>Primary Songs 2025</h1>
+    <h1>Parowan 2nd Ward Primary Songs 2025</h1>
     <div class="controls">
         <button onclick="prevTrack()">⏮ Prev</button>
         <button onclick="togglePlayPause()" id="playPauseBtn">⏸ Pause</button>
@@ -79,7 +86,7 @@
         Your browser does not support the audio element.
     </audio>
     <ul id="playlist">
-        <li id="track-0">Anytime Anywhere.mp3</li><li id="track-1">Called to Serve.mp3</li><li id="track-2">I belong to the church of Jesus Christ.mp3</li><li id="track-3">I will walk with Jesus.mp3</li><li id="track-4">My Own Sacred Grove.mp3</li><li id="track-5">Scripture Power.mp3</li><li id="track-6">Search Ponder and Pray.mp3</li><li id="track-7">This is my Beloved Son.mp3</li><li id="track-8">We Thank Thee O God for a Prophet.mp3</li><li id="track-9">because.mp3</li>
+        <li id="track-0"><span class="title">Anytime Anywhere.mp3</span><span class="duration" id="duration-0"></span></li><li id="track-1"><span class="title">Called to Serve.mp3</span><span class="duration" id="duration-1"></span></li><li id="track-2"><span class="title">I belong to the church of Jesus Christ.mp3</span><span class="duration" id="duration-2"></span></li><li id="track-3"><span class="title">I will walk with Jesus.mp3</span><span class="duration" id="duration-3"></span></li><li id="track-4"><span class="title">My Own Sacred Grove.mp3</span><span class="duration" id="duration-4"></span></li><li id="track-5"><span class="title">Scripture Power.mp3</span><span class="duration" id="duration-5"></span></li><li id="track-6"><span class="title">Search Ponder and Pray.mp3</span><span class="duration" id="duration-6"></span></li><li id="track-7"><span class="title">This is my Beloved Son.mp3</span><span class="duration" id="duration-7"></span></li><li id="track-8"><span class="title">We Thank Thee O God for a Prophet.mp3</span><span class="duration" id="duration-8"></span></li><li id="track-9"><span class="title">because.mp3</span><span class="duration" id="duration-9"></span></li>
     </ul>
     <script>
         const tracks = ["https://deltanner.github.io/primary/Anytime%20Anywhere.mp3", "https://deltanner.github.io/primary/Called%20to%20Serve.mp3", "https://deltanner.github.io/primary/I%20belong%20to%20the%20church%20of%20Jesus%20Christ.mp3", "https://deltanner.github.io/primary/I%20will%20walk%20with%20Jesus.mp3", "https://deltanner.github.io/primary/My%20Own%20Sacred%20Grove.mp3", "https://deltanner.github.io/primary/Scripture%20Power.mp3", "https://deltanner.github.io/primary/Search%20Ponder%20and%20Pray.mp3", "https://deltanner.github.io/primary/This%20is%20my%20Beloved%20Son.mp3", "https://deltanner.github.io/primary/We%20Thank%20Thee%20O%20God%20for%20a%20Prophet.mp3", "https://deltanner.github.io/primary/because.mp3"];
@@ -128,8 +135,26 @@
             }
         }
 
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+            return `${mins}:${secs}`;
+        }
+
+        function preloadDurations() {
+            tracks.forEach((trackUrl, index) => {
+                const tempAudio = new Audio();
+                tempAudio.src = trackUrl;
+                tempAudio.addEventListener('loadedmetadata', () => {
+                    const durationSpan = document.getElementById('duration-' + index);
+                    durationSpan.textContent = formatTime(tempAudio.duration);
+                });
+            });
+        }
+
         audioPlayer.addEventListener('ended', nextTrack);
         updateTrackDisplay();
+        preloadDurations();
     </script>
 </body>
 </html>
