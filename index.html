@@ -16,95 +16,40 @@
             margin-bottom: 40px;
         }
         .track {
-            margin-bottom: 30px;
+            display: none;
         }
         audio {
             width: 100%;
+        }
+        #now-playing {
+            font-weight: bold;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <h1>Primary Songs 2025</h1>
+    <div id="now-playing">Now Playing: Track 1</div>
+    <audio id="audio-player" controls autoplay>
+        <source id="audio-source" src="https://docs.google.com/uc?export=download&id=10Ob81AUKJUug9oxH7N2OFhRtw4a7mc30" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        const tracks = ["https://docs.google.com/uc?export=download&id=10Ob81AUKJUug9oxH7N2OFhRtw4a7mc30", "https://docs.google.com/uc?export=download&id=10crG30GEN52JW5sbNOlVjOPgsznm8JXF", "https://docs.google.com/uc?export=download&id=10WjoWH7pNwN747O_gOE9QvBF4bJ6t0Cz", "https://docs.google.com/uc?export=download&id=101HkjT_270dFPtJDH6xTfsFYGChrg93-", "https://docs.google.com/uc?export=download&id=107k9s_eIw1jGxZAT9iJHmoZ52ZWX7NRk", "https://docs.google.com/uc?export=download&id=10caIqWkYgqA5LXpP8xqIlpe6l2L87q0w", "https://docs.google.com/uc?export=download&id=10RFDryHiR3h3Pep5AJahhtlYyhngM5zQ", "https://docs.google.com/uc?export=download&id=10d9udLiWvKt0PoGPcYiAApKwC_49vsCp", "https://docs.google.com/uc?export=download&id=10-cqgV6G_0tnaPgfNRZfla0kXA5ubUky", "https://docs.google.com/uc?export=download&id=10bNIv7Mmc6nCyEyg-gLBorwO3OVKY4-K"];
+        let currentTrack = 0;
+        const audioPlayer = document.getElementById('audio-player');
+        const audioSource = document.getElementById('audio-source');
+        const nowPlaying = document.getElementById('now-playing');
 
-    <div class="track">
-        <strong>Anytime Anywhere</strong><br>
-        <audio controls>
-            <source src="Anytime Anywhere.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>Called to Serve</strong><br>
-        <audio controls>
-            <source src="Called to Serve.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>I belong to the church of Jesus Christ</strong><br>
-        <audio controls>
-            <source src="I belong to the church of Jesus Christ.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>I will walk with Jesus</strong><br>
-        <audio controls>
-            <source src="I will walk with Jesus.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>My Own Sacred Grove</strong><br>
-        <audio controls>
-            <source src="My Own Sacred Grove.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>Scripture Power</strong><br>
-        <audio controls>
-            <source src="Scripture Power.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>Search Ponder and Pray</strong><br>
-        <audio controls>
-            <source src="Search Ponder and Pray.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>This is my Beloved Son</strong><br>
-        <audio controls>
-            <source src="This is my Beloved Son.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>We Thank Thee O God for a Prophet</strong><br>
-        <audio controls>
-            <source src="We Thank Thee O God for a Prophet.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
-    <div class="track">
-        <strong>because</strong><br>
-        <audio controls>
-            <source src="because.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    
+        audioPlayer.addEventListener('ended', () => {
+            currentTrack++;
+            if (currentTrack < tracks.length) {
+                audioSource.src = tracks[currentTrack];
+                nowPlaying.textContent = 'Now Playing: Track ' + (currentTrack + 1);
+                audioPlayer.load();
+                audioPlayer.play();
+            }
+        });
+    </script>
 </body>
 </html>
