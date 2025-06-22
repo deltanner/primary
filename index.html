@@ -48,7 +48,14 @@
             font-size: 1em;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             cursor: pointer;
+        }
+        .note {
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+            display: inline-block;
         }
         .active {
             font-weight: bold;
@@ -81,17 +88,17 @@
         <button onclick="togglePlayPause()" id="playPauseBtn">⏸ Pause</button>
         <button onclick="nextTrack()">Next ⏭</button>
     </div>
-    <div id="now-playing">Now Playing: Anytime Anywhere.mp3</div>
+    <div id="now-playing">Now Playing: Anytime Anywhere</div>
     <audio id="audio-player" controls autoplay>
         <source id="audio-source" src="https://deltanner.github.io/primary/Anytime%20Anywhere.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     <ul id="playlist">
-        <li id="track-0" onclick="loadTrack(0)"><span class='title'>Anytime Anywhere.mp3</span><span class='duration' id='duration-0'></span></li><li id="track-1" onclick="loadTrack(1)"><span class='title'>Called to Serve.mp3</span><span class='duration' id='duration-1'></span></li><li id="track-2" onclick="loadTrack(2)"><span class='title'>I belong to the church of Jesus Christ.mp3</span><span class='duration' id='duration-2'></span></li><li id="track-3" onclick="loadTrack(3)"><span class='title'>I will walk with Jesus.mp3</span><span class='duration' id='duration-3'></span></li><li id="track-4" onclick="loadTrack(4)"><span class='title'>My Own Sacred Grove.mp3</span><span class='duration' id='duration-4'></span></li><li id="track-5" onclick="loadTrack(5)"><span class='title'>Scripture Power.mp3</span><span class='duration' id='duration-5'></span></li><li id="track-6" onclick="loadTrack(6)"><span class='title'>Search Ponder and Pray.mp3</span><span class='duration' id='duration-6'></span></li><li id="track-7" onclick="loadTrack(7)"><span class='title'>This is my Beloved Son.mp3</span><span class='duration' id='duration-7'></span></li><li id="track-8" onclick="loadTrack(8)"><span class='title'>We Thank Thee O God for a Prophet.mp3</span><span class='duration' id='duration-8'></span></li><li id="track-9" onclick="loadTrack(9)"><span class='title'>because.mp3</span><span class='duration' id='duration-9'></span></li>
+        <li id="track-0" onclick="loadTrack(0)"><span class='note' id='note-0'></span> <span class='title'>Anytime Anywhere</span><span class='duration' id='duration-0'></span></li><li id="track-1" onclick="loadTrack(1)"><span class='note' id='note-1'></span> <span class='title'>Called to Serve</span><span class='duration' id='duration-1'></span></li><li id="track-2" onclick="loadTrack(2)"><span class='note' id='note-2'></span> <span class='title'>I belong to the church of Jesus Christ</span><span class='duration' id='duration-2'></span></li><li id="track-3" onclick="loadTrack(3)"><span class='note' id='note-3'></span> <span class='title'>I will walk with Jesus</span><span class='duration' id='duration-3'></span></li><li id="track-4" onclick="loadTrack(4)"><span class='note' id='note-4'></span> <span class='title'>My Own Sacred Grove</span><span class='duration' id='duration-4'></span></li><li id="track-5" onclick="loadTrack(5)"><span class='note' id='note-5'></span> <span class='title'>Scripture Power</span><span class='duration' id='duration-5'></span></li><li id="track-6" onclick="loadTrack(6)"><span class='note' id='note-6'></span> <span class='title'>Search Ponder and Pray</span><span class='duration' id='duration-6'></span></li><li id="track-7" onclick="loadTrack(7)"><span class='note' id='note-7'></span> <span class='title'>This is my Beloved Son</span><span class='duration' id='duration-7'></span></li><li id="track-8" onclick="loadTrack(8)"><span class='note' id='note-8'></span> <span class='title'>We Thank Thee O God for a Prophet</span><span class='duration' id='duration-8'></span></li><li id="track-9" onclick="loadTrack(9)"><span class='note' id='note-9'></span> <span class='title'>because</span><span class='duration' id='duration-9'></span></li>
     </ul>
     <script>
         const tracks = ["https://deltanner.github.io/primary/Anytime%20Anywhere.mp3", "https://deltanner.github.io/primary/Called%20to%20Serve.mp3", "https://deltanner.github.io/primary/I%20belong%20to%20the%20church%20of%20Jesus%20Christ.mp3", "https://deltanner.github.io/primary/I%20will%20walk%20with%20Jesus.mp3", "https://deltanner.github.io/primary/My%20Own%20Sacred%20Grove.mp3", "https://deltanner.github.io/primary/Scripture%20Power.mp3", "https://deltanner.github.io/primary/Search%20Ponder%20and%20Pray.mp3", "https://deltanner.github.io/primary/This%20is%20my%20Beloved%20Son.mp3", "https://deltanner.github.io/primary/We%20Thank%20Thee%20O%20God%20for%20a%20Prophet.mp3", "https://deltanner.github.io/primary/because.mp3"];
-        const trackNames = ["Anytime Anywhere.mp3", "Called to Serve.mp3", "I belong to the church of Jesus Christ.mp3", "I will walk with Jesus.mp3", "My Own Sacred Grove.mp3", "Scripture Power.mp3", "Search Ponder and Pray.mp3", "This is my Beloved Son.mp3", "We Thank Thee O God for a Prophet.mp3", "because.mp3"];
+        const trackNames = ["Anytime Anywhere", "Called to Serve", "I belong to the church of Jesus Christ", "I will walk with Jesus", "My Own Sacred Grove", "Scripture Power", "Search Ponder and Pray", "This is my Beloved Son", "We Thank Thee O God for a Prophet", "because"];
         let currentTrack = 0;
 
         const audioPlayer = document.getElementById('audio-player');
@@ -103,6 +110,8 @@
             nowPlaying.textContent = "Now Playing: " + trackNames[currentTrack];
             document.querySelectorAll("ul#playlist li").forEach((el, index) => {
                 el.className = index === currentTrack ? "active" : "";
+                const noteIcon = document.getElementById("note-" + index);
+                noteIcon.textContent = index === currentTrack ? "🎵" : "";
             });
         }
 
